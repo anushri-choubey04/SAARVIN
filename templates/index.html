@@ -1,0 +1,294 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}SAARVIN RENT - Home{% endblock %}
+
+{% block content %}
+<!-- Story Section -->
+<section class="story-section">
+    <div class="stories-container">
+        <div class="story" data-story-id="1">
+            <div class="story-content">
+                <div class="story-header">
+                    <div class="story-avatar">
+                        <i class="fas fa-plus"></i>
+                    </div>
+                    <div class="story-info">
+                        <span class="story-username">List Your Clothes</span>
+                    </div>
+                </div>
+                <div class="story-media">
+                    <div class="add-story-btn">
+                        <i class="fas fa-plus"></i>
+                        <span>Add Your Story</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        {% for story in stories %}
+        <div class="story" data-story-id="{{ story.id }}">
+            <div class="story-content">
+                <div class="story-header">
+                    <div class="story-avatar">
+                        {% if story.user.profile_picture %}
+                            <img src="{{ story.user.profile_picture.url }}" alt="{{ story.user.username }}">
+                        {% else %}
+                            <i class="fas fa-user"></i>
+                        {% endif %}
+                    </div>
+                    <div class="story-info">
+                        <span class="story-username">{{ story.user.username }}</span>
+                        <span class="story-time">{{ story.created_at|timesince }} ago</span>
+                    </div>
+                </div>
+                <div class="story-media">
+                    {% if story.image %}
+                        <img src="{{ story.image.url }}" alt="{{ story.title }}">
+                    {% elif story.video %}
+                        <video controls>
+                            <source src="{{ story.video.url }}" type="video/mp4">
+                        </video>
+                    {% endif %}
+                    <div class="story-caption">{{ story.title }}</div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+<!-- Hero Section -->
+<div class="hero">
+    <div class="slides" id="slides">
+        {% for banner in banners %}
+        <div class="slide">
+            <img src="{{ banner.image.url }}" alt="{{ banner.title }}" />
+            <div class="slide-text">
+                <h2>{{ banner.title }}</h2>
+                <p>{{ banner.subtitle }}</p>
+            </div>
+        </div>
+        {% empty %}
+        <!-- Default slides if no banners -->
+        <div class="slide">
+            <img src="{% static 'images/Hero/lehnga1.png' %}" alt="Slide 1" />
+            <div class="slide-text">
+                <h2>Ethnic Fits</h2>
+                <p>Upto 60% Off</p>
+            </div>
+        </div>
+        <div class="slide">
+            <img src="{% static 'images/Hero/lehnga2.png' %}" alt="Slide 2" />
+            <div class="slide-text">
+                <h2>Ethnic Vibes</h2>
+                <p>From ₹999</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <button class="nav-btn nav-left" onclick="prevSlide()">
+        <i data-lucide="chevron-left"></i>
+    </button>
+    <button class="nav-btn nav-right" onclick="nextSlide()">
+        <i data-lucide="chevron-right"></i>
+    </button>
+</div>
+
+<!-- Category Section -->
+<div class="category-text">
+    <h2 class="typewriter">Rent by Category</h2>
+</div>
+
+<div class="categories">
+    <div class="max-w-7xl mx-auto scrollbar-none">
+        <div id="categoriesContainer" class="flex space-x-6 overflow-x-auto md:grid md:grid-cols-4 lg:grid-cols-7 md:gap-6 text-center px-4 md:px-0 scrollbar-hide">
+            {% for category in categories %}
+            <div class="category-item" onclick="filterByCategory({{ category.id }})">
+                <div class="category-icon">
+                    {% if category.image %}
+                        <img src="{{ category.image.url }}" alt="{{ category.name }}">
+                    {% else %}
+                        <i class="fas fa-tshirt"></i>
+                    {% endif %}
+                </div>
+                <span class="category-name">{{ category.name }}</span>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<!-- How It Works Section -->
+<div class="working-section" id="working-section">
+    <h2 class="title-working">How It Works</h2>
+    <div class="how-it-works">
+        <div class="working-saarvin">
+            <img src="{% static 'images/RentalWorking/tuexdo2.png' %}" alt="How to rent" />
+            <div class="card-saarvin">
+                <h3>How to rent</h3>
+                <p>Get your hands on designer pieces without breaking the bank.</p>
+                <a href="#rent">View Details →</a>
+            </div>
+        </div>
+        
+        <div class="working-saarvin">
+            <img src="{% static 'images/RentalWorking/lehnga.png' %}" alt="How to lend" />
+            <div class="card-saarvin">
+                <h3>How to Earn Money</h3>
+                <p>Make money on your favourite pieces that you can't wear all the time.</p>
+                <a href="#lend">View Details →</a>
+            </div>
+        </div>
+        
+        <div class="working-saarvin">
+            <img src="{% static 'images/RentalWorking/Dress.png' %}" alt="How delivery works" />
+            <div class="card-saarvin">
+                <h3>How delivery works</h3>
+                <p>Get your rentals delivered right to your doorstep with our convenient delivery service.</p>
+                <a href="#delivery">View Details →</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Quick View Section -->
+<div class="quick-view">
+    <div class="quick-view-header">
+        <h2>QuickView</h2>
+    </div>
+    
+    <div class="swiper">
+        <div class="swiper-wrapper" id="product-list">
+            {% for product in featured_products %}
+            <div class="swiper-slide">
+                <div class="product-card">
+                    <div class="product-image">
+                        {% if product.images.first %}
+                            <img src="{{ product.images.first.image.url }}" alt="{{ product.name }}">
+                        {% else %}
+                            <img src="{% static 'images/default-product.jpg' %}" alt="{{ product.name }}">
+                        {% endif %}
+                        <div class="wishlist-icon" onclick="toggleWishlist({{ product.id }})">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-name">{{ product.name }}</div>
+                        <div class="product-price">₹{{ product.rental_price_per_day }}/day</div>
+                        <div class="product-size">{{ product.size }}</div>
+                        <button class="add-to-cart-btn" onclick="addToCart({{ product.id }})">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <div class="swiper-button-prev custom-nav"></div>
+        <div class="swiper-button-next custom-nav"></div>
+        <div class="swiper-pagination"></div>
+    </div>
+</div>
+
+<!-- Video Section -->
+<header class="header-video"><h1>Rent • Wear • Shine</h1></header>
+<main class="video-row">
+    <article class="video-section-card">
+        <video class="auto-video" playsinline muted loop preload="metadata" data-src="{% static 'media/VideoSection/Lehnga.mp4' %}"></video>
+    </article>
+    <article class="video-section-card">
+        <video class="auto-video" playsinline muted loop preload="metadata" data-src="{% static 'media/VideoSection/mens ethnic 02.mp4' %}"></video>
+    </article>
+    <article class="video-section-card">
+        <video class="auto-video" playsinline muted loop preload="metadata" data-src="{% static 'media/VideoSection/lehngavideo2.mp4' %}"></video>
+    </article>
+</main>
+
+<!-- Price Section -->
+<div class="price-section">
+    <h2>RENT BY PRICE</h2>
+    <div class="price-cards">
+        <div class="price-card" onclick="filterByPrice(0, 2000)">
+            <h3>Under 2K</h3>
+            <p>UNDER 2K</p>
+        </div>
+        <div class="price-card" onclick="filterByPrice(2000, 4000)">
+            <h3>Under 4K</h3>
+            <p>UNDER 4K</p>
+        </div>
+        <div class="price-card" onclick="filterByPrice(4000, 6000)">
+            <h3>Under 6K</h3>
+            <p>UNDER 6K</p>
+        </div>
+        <div class="price-card" onclick="filterByPrice(6000, 8000)">
+            <h3>Under 8K</h3>
+            <p>UNDER 8K</p>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Wishlist functionality
+function toggleWishlist(productId) {
+    fetch('/api/wishlist/add/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]')?.value || ''
+        },
+        body: JSON.stringify({ product_id: productId })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.message) {
+            alert(data.message);
+        } else if (data.error) {
+            alert(data.error);
+        }
+    });
+}
+
+// Add to cart functionality
+function addToCart(productId) {
+    const startDate = prompt('Enter start date (YYYY-MM-DD):');
+    const endDate = prompt('Enter end date (YYYY-MM-DD):');
+    
+    if (startDate && endDate) {
+        fetch('/api/cart/add/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]')?.value || ''
+            },
+            body: JSON.stringify({
+                product_id: productId,
+                start_date: startDate,
+                end_date: endDate,
+                quantity: 1
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.message) {
+                alert(data.message);
+            } else if (data.error) {
+                alert(data.error);
+            }
+        });
+    }
+}
+
+// Filter functions
+function filterByCategory(categoryId) {
+    window.location.href = `/shop/?category=${categoryId}`;
+}
+
+function filterByPrice(minPrice, maxPrice) {
+    window.location.href = `/shop/?min_price=${minPrice}&max_price=${maxPrice}`;
+}
+</script>
+{% endblock %}

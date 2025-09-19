@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title> Shop</title>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+      background: #f9f9f9;
+    }
+    .container {
+      padding: 20px;
+      max-width: 1300px;
+      margin: auto;
+    }
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 20px;
+    }
+    .product-card {
+      background: #fff;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+      position: relative;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+    .product-card:hover {
+      transform: translateY(-5px);
+    }
+    .product-image {
+      width: 100%;
+      height: 300px;
+      position: relative;
+      overflow: hidden;
+    }
+    .product-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: all 0.4s ease;
+    }
+    .hover-img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      opacity: 0;
+      z-index: 1;
+    }
+    .product-card:hover .hover-img {
+      opacity: 1;
+      transform: scale(1.05);
+    }
+    .wishlist-icon {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: white;
+      padding: 6px;
+      border-radius: 50%;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      z-index: 2;
+      cursor: pointer;
+    }
+    .product-info {
+      padding: 10px 12px 15px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      flex-grow: 1;
+    }
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-bottom: 6px;
+    }
+    .badge {
+      background-color: #f1f1f1;
+      color: #333;
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+    .product-name {
+      font-size: 14px;
+      font-weight: 600;
+      min-height: 40px;
+      color: #222;
+      margin-bottom: 6px;
+      overflow: hidden;
+    }
+    .price-row {
+      font-size: 13px;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .price-row del {
+      color: #999;
+      font-size: 13px;
+    }
+    .price-row span {
+      color: #222;
+      font-weight: 600;
+      font-size: 14px;
+    }
+    .offer {
+      color: #388e3c;
+      font-weight: 600;
+      font-size: 12px;
+      margin-bottom: 4px;
+    }
+    .get-price {
+      color: #555;
+      font-size: 12px;
+    }
+    @media (max-width: 768px) {
+      .product-image {
+        height: 250px;
+      }
+    }
+    @media (max-width: 480px) {
+      .product-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .product-image {
+        height: 220px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="product-grid" id="product-grid">
+    <!-- Products will be injected here -->
+  </div>
+</div>
+
+<script>
+  lucide.createIcons();
+
+  const products = [
+    {
+      badges: ['Bestseller'],
+      name: 'Pink Tiered Midi Dress',
+      frontImg: 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80?text=Back',
+      backImg: 'https://images.unsplash.com/photo-1585487000143-9bcec9b8e483?w=1200',
+      price: '₹2,100',
+      discountPrice: '₹1,971',
+      offer: '10% OFF',
+      getItFor: '₹1771'
+    },
+    {
+      badges: ['Bestseller', 'Only on Saarvin'],
+      name: 'Vanilla Bean Polka Cotton Dress',
+      frontImg: 'https://source.unsplash.com/random/400x400?dress2',
+      backImg: 'https://source.unsplash.com/random/400x400?fashion2',
+      price: '₹3,650',
+      discountPrice: '₹3,325',
+      offer: '5% OFF',
+      getItFor: '₹3125'
+    },
+    {
+      badges: ['Ad', 'Latest Style'],
+      name: 'Black Floral Midi Dress',
+      frontImg: 'https://source.unsplash.com/random/400x400?dress3',
+      backImg: 'https://source.unsplash.com/random/400x400?fashion3',
+      price: '',
+      discountPrice: '₹3,799',
+      offer: '',
+      getItFor: '₹3599'
+    },
+    {
+      badges: ['Latest Style'],
+      name: 'Baby Pink Full Sleeves Midi Shirt',
+      frontImg: 'https://source.unsplash.com/random/400x400?dress4',
+      backImg: 'https://source.unsplash.com/random/400x400?fashion4',
+      price: '₹3,295',
+      discountPrice: '₹2,966',
+      offer: '10% OFF',
+      getItFor: '₹2766'
+    }
+  ];
+
+  const productGrid = document.getElementById('product-grid');
+
+  products.forEach(product => {
+    productGrid.innerHTML += `
+      <div class="product-card">
+        <div class="product-image">
+          <img src="${product.frontImg}" alt="Front Image" class="default-img">
+          <img src="${product.backImg}" alt="Hover Image" class="hover-img">
+          <div class="wishlist-icon">
+            <i data-lucide="heart"></i>
+          </div>
+        </div>
+        <div class="product-info">
+          <div>
+            <div class="badge-row">
+              ${product.badges.map(badge => `<div class="badge">${badge}</div>`).join('')}
+            </div>
+            <div class="product-name">${product.name}</div>
+            <div class="price-row">
+              ${product.price ? `<del>${product.price}</del>` : ''}
+              <span>${product.discountPrice}</span>
+            </div>
+            <div class="offer">${product.offer}</div>
+          </div>
+          <div class="get-price">Get it for <strong>${product.getItFor}</strong></div>
+        </div>
+      </div>
+    `;
+  });
+
+  lucide.createIcons();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,254 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Shop - SAARVIN RENT{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="product-grid" id="product-grid">
+    {% for product in products %}
+    <div class="product-card">
+      <div class="product-image">
+        {% if product.images.first and product.images.first.image and product.images.first.image.name %}
+          <img src="{{ product.images.first.image.url }}" alt="{{ product.name }}" class="default-img">
+          {% if product.images.count > 1 %}
+            <img src="{{ product.images.all.1.image.url }}" alt="{{ product.name }}" class="hover-img">
+          {% endif %}
+        {% else %}
+          <img src="{% static 'images/default-product.jpg' %}" alt="{{ product.name }}" class="default-img">
+        {% endif %}
+        <div class="wishlist-icon" onclick="toggleWishlist({{ product.id }})">
+          <i data-lucide="heart"></i>
+        </div>
+      </div>
+      <div class="product-info">
+        <div>
+          <div class="badge-row">
+            {% if product.is_featured %}
+              <div class="badge">Featured</div>
+            {% endif %}
+            <div class="badge">{{ product.category.name }}</div>
+            <div class="badge">{{ product.size }}</div>
+          </div>
+          <div class="product-name">{{ product.name }}</div>
+          <div class="price-row">
+            <span>₹{{ product.rental_price_per_day }}/day</span>
+          </div>
+          <div class="offer">{{ product.brand|default:"" }}</div>
+        </div>
+        <div class="get-price">Size: <strong>{{ product.size }}</strong></div>
+        <button class="add-to-cart-btn" onclick="addToCart({{ product.id }})">
+          Add to Cart
+        </button>
+      </div>
+    </div>
+    {% empty %}
+    <div class="no-products">
+      <h3>No products found</h3>
+      <p>Try adjusting your filters or check back later for new arrivals.</p>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+<style>
+  .container {
+    padding: 20px;
+    max-width: 1300px;
+    margin: auto;
+  }
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 20px;
+  }
+  .product-card {
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+    position: relative;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  .product-card:hover {
+    transform: translateY(-5px);
+  }
+  .product-image {
+    width: 100%;
+    height: 300px;
+    position: relative;
+    overflow: hidden;
+  }
+  .product-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: all 0.4s ease;
+  }
+  .hover-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    z-index: 1;
+  }
+  .product-card:hover .hover-img {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+  .wishlist-icon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: white;
+    padding: 6px;
+    border-radius: 50%;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    z-index: 2;
+    cursor: pointer;
+  }
+  .product-info {
+    padding: 10px 12px 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-grow: 1;
+  }
+  .badge-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-bottom: 6px;
+  }
+  .badge {
+    background-color: #f1f1f1;
+    color: #333;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+  .product-name {
+    font-size: 14px;
+    font-weight: 600;
+    min-height: 40px;
+    color: #222;
+    margin-bottom: 6px;
+    overflow: hidden;
+  }
+  .price-row {
+    font-size: 13px;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .price-row span {
+    color: #222;
+    font-weight: 600;
+    font-size: 14px;
+  }
+  .offer {
+    color: #388e3c;
+    font-weight: 600;
+    font-size: 12px;
+    margin-bottom: 4px;
+  }
+  .get-price {
+    color: #555;
+    font-size: 12px;
+    margin-bottom: 8px;
+  }
+  .add-to-cart-btn {
+    background: #080214;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+  }
+  .add-to-cart-btn:hover {
+    background: #6d44b8;
+  }
+  .no-products {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 40px;
+    color: #666;
+  }
+  @media (max-width: 768px) {
+    .product-image {
+      height: 250px;
+    }
+  }
+  @media (max-width: 480px) {
+    .product-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .product-image {
+      height: 220px;
+    }
+  }
+</style>
+
+<script>
+  lucide.createIcons();
+
+  // Wishlist functionality
+  function toggleWishlist(productId) {
+    fetch('/api/wishlist/add/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]')?.value || ''
+      },
+      body: JSON.stringify({ product_id: productId })
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.message) {
+        alert(data.message);
+      } else if (data.error) {
+        alert(data.error);
+      }
+    });
+  }
+
+  // Add to cart functionality
+  function addToCart(productId) {
+    const startDate = prompt('Enter start date (YYYY-MM-DD):');
+    const endDate = prompt('Enter end date (YYYY-MM-DD):');
+    
+    if (startDate && endDate) {
+      fetch('/api/cart/add/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]')?.value || ''
+        },
+        body: JSON.stringify({
+          product_id: productId,
+          start_date: startDate,
+          end_date: endDate,
+          quantity: 1
+        })
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.message) {
+          alert(data.message);
+        } else if (data.error) {
+          alert(data.error);
+        }
+      });
+    }
+  }
+</script>
+{% endblock %}

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Glamourental – All Videos (Autoplay)</title>
+    <style>
+      :root {
+        --gap: 16px;
+        --radius: 14px;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica,
+          Arial;
+        background: white;
+        color: #222;
+      }
+      .header-video {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 14px 12px;
+        
+      }
+      .header-video h1 {
+        font-size: 3rem;
+        margin: 6px;
+        font-weight: bold;
+      }
+
+      /* DESKTOP: Single horizontal scrolling row */
+      .video-row {
+        display: flex;
+        gap: 16px;
+        overflow-x: auto;
+        padding: 20px 18px;
+        width: 100%;
+        align-items: stretch;
+      }
+      .video-row::-webkit-scrollbar {
+        height: 10px;
+        display: none;
+      }
+      .video-row::-webkit-scrollbar-thumb {
+        background: rgba(0, 0, 0, 0.12);
+        border-radius: 999px;
+      }
+
+      /* Each card when in row layout */
+      .video-section-card {
+        min-width: 300px; /* width of each card in the horizontal row */
+        flex: 0 0 300px; /* prevents shrinking so they stay in one row */
+        border-radius: 15px;
+        overflow: hidden;
+        background: #f7f7f7;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+        position: relative;
+      }
+
+      .video-section-card video {
+        width: 100%;
+        height: 100%;
+        display: block;
+        object-fit: cover;
+        aspect-ratio: 3/4;
+        background: #eee;
+      }
+
+      /* MOBILE: change to grid */
+      @media (max-width: 768px) {
+        .header-video h1 {
+          font-size: 2rem;
+            margin: 5px;
+            font-weight: bold;
+        }
+        .video-row {
+          display: grid;
+          grid-template-columns: repeat(2, 2fr);
+          gap: 12px;
+          padding: 14px;
+        }
+        .video-section-card {
+          min-width: 0;
+          flex: 1 1 auto;
+        }
+        .video-section-card video {
+          aspect-ratio: 4/5;
+        }
+      }
+
+      /* Very small screens: single column */
+      @media (max-width: 420px) {
+        .video-row {
+          grid-template-columns: repeat(2, 2fr);
+          font-weight: bold;
+          margin: 5px;
+        }
+      }
+
+      
+    </style>
+  </head>
+  <body>
+    <header class="header-video"><h1>Rent • Wear • Shine </h1></header>
+    <!-- .video-row acts as a horizontal scroller on desktop and as a grid on mobile -->
+    <main class="video-row">
+      <!-- Replace data-src with your actual video URLs. Keep videos muted & playsinline for autoplay to work on mobile. -->
+      <article class="video-section-card">
+        <video
+          class="auto-video"
+          playsinline
+          muted
+          loop
+          preload="metadata"
+          data-src="Lehnga.mp4"
+        ></video>
+      </article>
+      <article class="video-section-card">
+        <video
+          class="auto-video"
+          playsinline
+          muted
+          loop
+          preload="metadata"
+          data-src="mens ethnic 02.mp4"
+        ></video>
+      </article>
+      <article class="video-section-card">
+        <video
+          class="auto-video"
+          playsinline
+          muted
+          loop
+          preload="metadata"
+          data-src="lehngavideo2.mp4"
+        ></video>
+      </article>
+      <article class="video-section-card">
+        <video
+          class="auto-video"
+          playsinline
+          muted
+          loop
+          preload="metadata"
+          data-src="lehngavideo 01.mp4"
+        ></video>
+      </article>
+      <article class="video-section-card">
+        <video
+          class="auto-video"
+          playsinline
+          muted
+          loop
+          preload="metadata"
+          data-src="lehngavideo03.mp4"
+        ></video>
+      </article>
+      <!-- add more cards as needed -->
+    </main>
+
+    <script>
+      const videos = Array.from(document.querySelectorAll(".auto-video"));
+      function tryPlay(v) {
+        const p = v.play();
+        if (p && typeof p.catch === "function") p.catch(() => {});
+      }
+      function onEnter(v) {
+        if (!v.src && v.dataset.src) v.src = v.dataset.src;
+        tryPlay(v);
+      }
+      function onLeave(v) {
+        if (!v.paused) v.pause();
+      }
+
+      if ("IntersectionObserver" in window) {
+        const io = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              const v = entry.target;
+              if (entry.isIntersecting) onEnter(v);
+              else onLeave(v);
+            });
+          },
+          { threshold: 0.25 }
+        );
+        videos.forEach((v) => io.observe(v));
+      } else {
+        videos.forEach((v) => {
+          if (v.dataset.src) v.src = v.dataset.src;
+          tryPlay(v);
+        });
+      }
+
+      // Tap to toggle mute/unmute
+      document.addEventListener("click", (e) => {
+        const v = e.target.closest("video.auto-video");
+        if (!v) return;
+        v.muted = !v.muted;
+        tryPlay(v);
+      });
+    </script>
+  </body>
+</html>

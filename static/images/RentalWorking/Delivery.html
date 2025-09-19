@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>How Delivery Works</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      /* Navigation Tabs */
+      .tabs-nav {
+        display: flex;
+        justify-content: center;
+        background: #f8f8f8;
+        border-radius: 9999px;
+        margin: 30px auto;
+        padding: 8px;
+        max-width: 650px;
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+      }
+
+      .tab-link {
+        flex: 1;
+        text-align: center;
+        padding: 12px 25px;
+        margin: 0 4px;
+        border-radius: 9999px;
+        font-weight: 600;
+        font-size: 1rem;
+        color: #333;
+        text-decoration: none;
+        transition: all 0.3s ease;
+      }
+
+      /* Hover effect */
+      .tab-link:hover {
+        background: #333;
+        color: #fff;
+      }
+
+      /* Active tab (current page) */
+      .tab-link.active {
+        background: #000;
+        color: #fff;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+        transform: scale(1.05);
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50 font-sans">
+    <!-- Tabs Navigation -->
+    <div class="tabs-nav">
+      <a href="Rent.html" class="tab-link">How to Rent</a>
+      <a href="Lend.html" class="tab-link">How to Earn</a>
+      <a href="Delivery.html" class="tab-link">How Delivery Works</a>
+    </div>
+
+    <!-- Delivery for Renter -->
+    <section class="py-20">
+      <h2
+        class="text-4xl md:text-5xl font-bold text-center text-gray-800 mb-14"
+      >
+        Delivery for <span class="text-green-700">Renter</span>
+        <p class="text-xl text-center text-gray-600 mb-2 mt-2">Those who takes an outfits on rent.</p>
+      </h2>
+      </h2>
+
+      <div
+        class="grid grid-cols-1 md:grid-cols-4 gap-10 max-w-6xl mx-auto px-6"
+      >
+        <!-- Step 1 -->
+        <div
+          class="bg-white rounded-2xl shadow-lg p-8 text-center hover:-translate-y-2 hover:shadow-2xl transition-all duration-300"
+        >
+          <div
+            class="w-20 h-20 mx-auto flex items-center justify-center rounded-full bg-green-100 mb-6"
+          >
+            <img
+              src="https://img.icons8.com/ios/100/2e7d32/shopping-bag.png"
+              alt="Order"
+              class="w-12 h-12"
+            />
+          </div>
+          <h3 class="text-xl font-semibold text-gray-800 mb-2">
+            1. Place Order
+          </h3>
+          <p class="text-gray-600">
+            Select your rental item, confirm your booking, and choose delivery.
+          </p>
+        </div>
+
+        <!-- Step 2 -->
+        <div
+          class="bg-white rounded-2xl shadow-lg p-8 text-center hover:-translate-y-2 hover:shadow-2xl transition-all duration-300"
+        >
+          <div
+            class="w-20 h-20 mx-auto flex items-center justify-center rounded-full bg-green-100 mb-6"
+          >
+            <img
+              src="https://img.icons8.com/ios/100/2e7d32/delivery.png"
+              alt="Delivery"
+              class="w-12 h-12"
+            />
+          </div>
+          <h3 class="text-xl font-semibold text-gray-800 mb-2">
+            2. Get Delivery
+          </h3>
+          <p class="text-gray-600">
+            Receive your outfit via same-day courier, shipping, or in-person
+            pickup.
+          </p>
+        </div>
+
+        <!-- Step 3 -->
+        <div
+          class="bg-white rounded-2xl shadow-lg p-8 text-center hover:-translate-y-2 hover:shadow-2xl transition-all duration-300"
+        >
+          <div
+            class="w-20 h-20 mx-auto flex items-center justify-center rounded-full bg-green-100 mb-6"
+          >
+            <img
+              src="https://img.icons8.com/ios/100/2e7d32/clothes.png"
+              alt="Enjoy Outfit"
+              class="w-12 h-12"
+            />
+          </div>
+          <h3 class="text-xl font-semibold text-gray-800 mb-2">
+            3. Enjoy Your Outfit
+          </h3>
+          <p class="text-gray-600">
+            Wear your rental with confidence for your event or outing.
+          </p>
+        </div>
+
+        <!-- Step 4 -->
+        <div
+          class="bg-white rounded-2xl shadow-lg p-8 text-center hover:-translate-y-2 hover:shadow-2xl transition-all duration-300"
+        >
+          <div
+            class="w-20 h-20 mx-auto flex items-center justify-center rounded-full bg-green-100 mb-6"
+          >
+            <img
+              src="https://img.icons8.com/ios/100/2e7d32/return.png"
+              alt="Return"
+              class="w-12 h-12"
+            />
+          </div>
+          <h3 class="text-xl font-semibold text-gray-800 mb-2">
+            4. Return Easily
+          </h3>
+          <p class="text-gray-600">
+            Schedule a return pickup or drop it off — hassle free.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Delivery for Lender -->
+    <section class="py-20 bg-green-50">
+      <h2
+        class="text-4xl md:text-5xl font-bold text-center text-gray-800 mb-14"
+      >
+        Delivery for <span class="text-green-700">Lender/Earner</span>
+        <p class="text-xl text-center text-gray-600 mb-2 mt-2">Those who gives an outfits on rent.</p>
+      </h2>
+      
+
+      <div
+        class="grid grid-cols-1 md:grid-cols-4 gap-10 max-w-6xl mx-auto px-6"
+      >
+        <!-- Step 1 -->
+        <div
+          class="bg-white rounded-2xl shadow-lg p-8 text-center hover:-translate-y-2 hover:shadow-2xl transition-all duration-300"
+        >
+          <div
+            class="w-20 h-20 mx-auto flex items-center justify-center rounded-full bg-green-100 mb-6"
+          >
+            <img
+              src="https://img.icons8.com/ios/100/2e7d32/warehouse.png"
+              alt="Prepare"
+              class="w-12 h-12"
+            />
+          </div>
+          <h3 class="text-xl font-semibold text-gray-800 mb-2">
+            1. Prepare Item
+          </h3>
+          <p class="text-gray-600">
+            Clean, pack, and get your outfit ready for delivery.
+          </p>
+        </div>
+
+        <!-- Step 2 -->
+        <div
+          class="bg-white rounded-2xl shadow-lg p-8 text-center hover:-translate-y-2 hover:shadow-2xl transition-all duration-300"
+        >
+          <div
+            class="w-20 h-20 mx-auto flex items-center justify-center rounded-full bg-green-100 mb-6"
+          >
+            <img
+              src="https://img.icons8.com/ios/100/2e7d32/shipped.png"
+              alt="Ship"
+              class="w-12 h-12"
+            />
+          </div>
+          <h3 class="text-xl font-semibold text-gray-800 mb-2">
+            2. Send to Us
+          </h3>
+          <p class="text-gray-600">
+            Choose courier, shipping, or in-person handover.
+          </p>
+        </div>
+
+        <!-- Step 3 -->
+        <div
+          class="bg-white rounded-2xl shadow-lg p-8 text-center hover:-translate-y-2 hover:shadow-2xl transition-all duration-300"
+        >
+          <div
+            class="w-20 h-20 mx-auto flex items-center justify-center rounded-full bg-green-100 mb-6"
+          >
+            <img
+              src="https://img.icons8.com/ios/100/2e7d32/return-purchase.png"
+              alt="Receive Return"
+              class="w-12 h-12"
+            />
+          </div>
+          <h3 class="text-xl font-semibold text-gray-800 mb-2">
+            3. Receive Return
+          </h3>
+          <p class="text-gray-600">
+            Get your item back once the rental period is over.
+          </p>
+        </div>
+
+        <!-- Step 4 -->
+        <div
+          class="bg-white rounded-2xl shadow-lg p-8 text-center hover:-translate-y-2 hover:shadow-2xl transition-all duration-300"
+        >
+          <div
+            class="w-20 h-20 mx-auto flex items-center justify-center rounded-full bg-green-100 mb-6"
+          >
+            <img
+              src="https://img.icons8.com/ios/100/2e7d32/money-bag.png"
+              alt="Earn Money"
+              class="w-12 h-12"
+            />
+          </div>
+          <h3 class="text-xl font-semibold text-gray-800 mb-2">
+            4. Earn Money
+          </h3>
+          <p class="text-gray-600">
+            Receive your payment securely after each successful rental.
+          </p>
+        </div>
+      </div>
+    </section>
+  </body>
+  <script>
+  const navLinks = document.querySelectorAll(".tabs-nav a");
+  const currentPage = window.location.href.toLowerCase(); // full URL lo
+
+  navLinks.forEach((link) => {
+    if (currentPage.includes(link.getAttribute("href").toLowerCase())) {
+      link.classList.add("active");
+    }
+  });
+</script>
+</html>

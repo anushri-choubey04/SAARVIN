@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SAARVIN</title>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"
+    />
+    <!-- Tailwind CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    />
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Custom Styles -->
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      .hero {
+        position: relative;
+        overflow: hidden;
+        height: 80vh;
+        width: full;
+        margin: 2px auto;
+      }
+
+      .slides {
+        display: flex;
+        transition: transform 0.8s ease-in-out;
+        height: 100%;
+      }
+
+      .slide {
+        min-width: 50%;
+        height: 100%;
+        position: relative;
+      }
+
+      .slide img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 35px;
+        margin: 0;
+        padding: 0;
+      }
+
+      .slide-text {
+        position: absolute;
+        bottom: 20%;
+        left: 10%;
+        color: black;
+        text-shadow: 1px 1px 10px rgba(0, 0, 0, 0.6);
+      }
+
+      .slide-text h2 {
+        font-size: 2.5rem;
+        margin-bottom: 10px;
+      }
+
+      .slide-text p {
+        font-size: 1.2rem;
+      }
+
+      .nav-btn {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: rgba(255, 255, 255, 0.7);
+        border: none;
+
+        padding: 10px;
+        border-radius: 50%;
+        cursor: pointer;
+        z-index: 10;
+      }
+
+      .nav-btn svg {
+        width: 30px;
+        height: 30px;
+      }
+
+      .nav-left {
+        left: 10px;
+      }
+      .nav-right {
+        right: 10px;
+      }
+
+      @media (max-width: 610px) {
+        .hero {
+          height: 400px;
+          width: 90%;
+          border-radius: 35px;
+          box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+        }
+        .slide {
+          min-width: 100%;
+          height: 100%;
+          position: relative;
+        }
+
+        .slide-text h2 {
+          font-size: 1.5rem;
+        }
+        .slide-text p {
+          font-size: 1rem;
+        }
+        .category-text {
+          margin-top: 20px;
+          animation-delay: 1s;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Hero Section -->
+    <div class="hero">
+      <div class="slides" id="slides">
+        <div class="slide">
+          <img src="lehnga1.png" alt="Slide 1" />
+          <div class="slide-text">
+            <h2>Ethnic Fits</h2>
+            <p>Upto 60% Off</p>
+          </div>
+        </div>
+        <div class="slide">
+          <img src="lehnga2.png" alt="Slide 2" />
+          <div class="slide-text">
+            <h2>Ethnic Vibes</h2>
+            <p>From ₹999</p>
+          </div>
+        </div>
+        <div class="slide">
+          <img
+            src="https://images.unsplash.com/photo-1595777457583-95e059d581b8?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80"
+            alt="Slide 3"
+          />
+          <div class="slide-text">
+            <h2>Western look</h2>
+            <p>New Launches</p>
+          </div>
+        </div>
+        <div class="slide">
+          <img src="gown2.png" alt="Slide 4" />
+          <div class="slide-text">
+            <h2>Western vibes</h2>
+            <p>Exclusive</p>
+          </div>
+        </div>
+
+        <div class="slide">
+          <img src="ProductSection/IMAGES/sherwani.jpeg" alt="Slide 5" />
+          <div class="slide-text">
+            <h2>Mens look</h2>
+            <p>Rent Now</p>
+          </div>
+        </div>
+        <div class="slide">
+          <img src="ProductSection/IMAGES/sherwani2.jpeg" alt="Slide 6" />
+          <div class="slide-text">
+            <h2>Mens Wear</h2>
+            <p>Grab it</p>
+          </div>
+        </div>
+      </div>
+      <button class="nav-btn nav-left" onclick="prevSlide()">
+        <i data-lucide="chevron-left"></i>
+      </button>
+      <button class="nav-btn nav-right" onclick="nextSlide()">
+        <i data-lucide="chevron-right"></i>
+      </button>
+    </div>
+    <!-- Hero Section End -->
+  </body>
+  <script>
+    lucide.createIcons();
+
+    const slides = document.getElementById("slides");
+    const totalSlides = document.querySelectorAll(".slide").length;
+    let index = 0;
+
+    function getStep() {
+      return window.innerWidth <= 610 ? 100 : 50;
+    }
+
+    function updateSlide() {
+      slides.style.transform = `translateX(-${index * getStep()}%)`;
+    }
+
+    function nextSlide() {
+      const maxIndex =
+        window.innerWidth <= 610 ? totalSlides - 1 : totalSlides - 2;
+      index = index >= maxIndex ? 0 : index + 1;
+      updateSlide();
+    }
+
+    function prevSlide() {
+      const maxIndex =
+        window.innerWidth <= 610 ? totalSlides - 1 : totalSlides - 2;
+      index = index <= 0 ? maxIndex : index - 1;
+      updateSlide();
+    }
+
+    setInterval(nextSlide, 3000); // auto-slide every 4s
+
+    // resize hone par step reset ho jaye
+    window.addEventListener("resize", () => {
+      index = 0;
+      updateSlide();
+    });
+  </script>
+</html>

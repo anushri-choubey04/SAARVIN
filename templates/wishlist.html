@@ -1,0 +1,155 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}My Wishlist - SAARVIN RENT{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+    <h1 class="text-3xl font-bold mb-8">My Wishlist</h1>
+    
+    {% if wishlist_items %}
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {% for item in wishlist_items %}
+            <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
+                <!-- Product Image -->
+                <div class="relative">
+                    {% if item.product.images.first and item.product.images.first.image and item.product.images.first.image.name %}
+                        <img src="{{ item.product.images.first.image.url }}" 
+                             alt="{{ item.product.name }}" 
+                             class="w-full h-64 object-cover">
+                    {% else %}
+                        <img src="{% static 'images/default-product.jpg' %}" 
+                             alt="{{ item.product.name }}" 
+                             class="w-full h-64 object-cover">
+                    {% endif %}
+                    
+                    <!-- Wishlist Remove Button -->
+                    <button onclick="removeFromWishlist({{ item.product.id }})" 
+                            class="absolute top-2 right-2 bg-white rounded-full p-2 shadow-md hover:bg-red-50 transition-colors duration-200">
+                        <svg class="w-5 h-5 text-red-500" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd"></path>
+                        </svg>
+                    </button>
+                </div>
+                
+                <!-- Product Details -->
+                <div class="p-4">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2 line-clamp-2">{{ item.product.name }}</h3>
+                    <p class="text-sm text-gray-600 mb-2">{{ item.product.category.name }} - {{ item.product.size }}</p>
+                    <p class="text-sm text-gray-500 mb-3">{{ item.product.brand|default:"No brand" }}</p>
+                    
+                    <!-- Price -->
+                    <div class="mb-4">
+                        <p class="text-xl font-bold text-gray-900">₹{{ item.product.rental_price_per_day }}/day</p>
+                        <p class="text-sm text-gray-600">+₹500 refundable deposit</p>
+                    </div>
+                    
+                    <!-- Action Buttons -->
+                    <div class="space-y-2">
+                        <button onclick="addToCart({{ item.product.id }})" 
+                                class="w-full bg-blue-600 text-white py-2 px-4 rounded-lg font-medium hover:bg-blue-700 transition duration-200 flex items-center justify-center gap-2">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 5M7 13l2.5 5m6-5v6a2 2 0 01-2 2H9a2 2 0 01-2-2v-6m8 0V9a2 2 0 00-2-2H9a2 2 0 00-2 2v4.01"></path>
+                            </svg>
+                            Add to Cart
+                        </button>
+                        
+                        <a href="{% url 'product_detail' item.product.id %}" 
+                           class="w-full bg-gray-100 text-gray-700 py-2 px-4 rounded-lg font-medium hover:bg-gray-200 transition duration-200 text-center block">
+                            View Details
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <!-- Empty Wishlist -->
+        <div class="text-center py-12">
+            <div class="mx-auto w-24 h-24 text-gray-400 mb-4">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                </svg>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-900 mb-2">Your wishlist is empty</h3>
+            <p class="text-gray-600 mb-6">Save items you love to your wishlist</p>
+            <a href="{% url 'shop' %}" 
+               class="inline-block bg-blue-600 text-white py-2 px-6 rounded-lg font-medium hover:bg-blue-700 transition duration-200">
+                Start Shopping
+            </a>
+        </div>
+    {% endif %}
+</div>
+
+<style>
+.line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+</style>
+
+<script>
+// Remove from wishlist
+function removeFromWishlist(productId) {
+    if (confirm('Are you sure you want to remove this item from your wishlist?')) {
+        fetch('/api/wishlist/remove/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]')?.value || ''
+            },
+            body: JSON.stringify({ product_id: productId })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.message) {
+                alert(data.message);
+                location.reload(); // Refresh the page
+            } else if (data.error) {
+                alert(data.error);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred while removing the item');
+        });
+    }
+}
+
+// Add to cart
+function addToCart(productId) {
+    const startDate = prompt('Enter start date (YYYY-MM-DD):');
+    const endDate = prompt('Enter end date (YYYY-MM-DD):');
+    
+    if (startDate && endDate) {
+        fetch('/api/cart/add/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]')?.value || ''
+            },
+            body: JSON.stringify({
+                product_id: productId,
+                start_date: startDate,
+                end_date: endDate,
+                quantity: 1
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.message) {
+                alert(data.message);
+            } else if (data.error) {
+                alert(data.error);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred while adding to cart');
+        });
+    }
+}
+</script>
+{% endblock %}

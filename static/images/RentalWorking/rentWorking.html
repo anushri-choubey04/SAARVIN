@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>How It Works</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background: #fff;
+        color: #222;
+      }
+
+      .title-working {
+        text-align: center;
+        margin: 40px 20px 20px;
+        font-size: 3rem;
+      }
+
+      .how-it-works {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        padding: 20px;
+        flex-wrap: wrap;
+        max-width: 1200px;
+        height: 600px;
+        margin: auto;
+      }
+
+      .working {
+        flex: 1 1 300px;
+        max-width: 350px;
+        background: rgb(153, 153, 154);
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        display: flex;
+        flex-direction: column;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .working:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      }
+
+      /* Image zoom effect */
+      .working img {
+        width: 100%;
+        height: 400px;
+        object-fit: cover;
+        transition: transform 0.4s ease;
+        cursor: pointer;
+      }
+
+      .working img:hover,
+      .working img:active {
+        transform: scale(1.08);
+      }
+
+      .card-content {
+        padding: 10px;
+        color: #fff;
+        text-align: center;
+      }
+
+      .card-content h3 {
+        margin-bottom: 10px;
+        font-size: 2rem;
+      }
+
+      .card-content p {
+        font-size: 0.95rem;
+        margin-bottom: 15px;
+        line-height: 1.4;
+      }
+
+      .card-content a {
+        color: black;
+        text-decoration: none;
+        font-weight: bold;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        transition: color 0.2s ease;
+        font-size: 1.4rem;
+      }
+
+      .card-content a:hover {
+        text-decoration: underline;
+        color: #e6e6e6;
+      }
+
+      @media (max-width: 600px) {
+        .title-working {
+          font-size: 2.2rem;
+          margin: 30px 10px 15px;
+        }
+
+        .working {
+          max-width: 100%;
+        }
+        
+        .working img {
+          height: 250px;
+          object-fit: cover;
+        }
+
+        .card-content h3 {
+          font-size: 1.6rem;
+        }
+
+        .card-content p {
+          font-size: 0.8rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <section>
+      <div class="working-section" id="working-section">
+         <h2 class="title-working">How It Works</h2>
+
+    <div class="how-it-works">
+      <!-- Card 1 -->
+      <div class="working">
+        <img src="Dress.png" alt="How to rent" />
+        <div class="card-content">
+          <h3>How to rent</h3>
+          <p>Get your hands on designer pieces without breaking the bank.</p>
+          <a href="Rent.html">View Details →</a>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="working">
+        <img src="tuexdo2.png" alt="How to lend" />
+        <div class="card-content">
+          <h3>How to lend</h3>
+          <p>
+            Make money on your favourite pieces that you can’t wear all the
+            time.
+          </p>
+          <a href="Lend.html">View Details →</a>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="working">
+        <img src="lehnga.png" alt="How delivery works" />
+        <div class="card-content">
+          <h3>How delivery works</h3>
+          <p>
+            Get your rentals delivered right to your doorstep with our
+            convenient delivery service.
+          </p>
+          <a href="Delivery.html">View Details →</a>
+        </div>
+      </div>
+    </div>
+      </div>
+    </section>
+  </body>
+</html>

@@ -1,0 +1,110 @@
+{% load static %}
+<header>
+    <div class="nav-container">
+        <nav class="navbar">
+            <div class="logo">
+                <a href="{% url 'home' %}">YAARVIN</a>
+            </div>
+
+            <!-- Searchbar -->
+            <div class="search-container">
+                <form method="GET" action="{% url 'shop' %}">
+                    <input type="text" name="search" id="searchBox" placeholder="Search clothes, categories..." value="{{ search_query|default:'' }}" />
+                    <i class="fas fa-search"></i>
+                </form>
+                <div class="suggestions" id="suggestions"></div>
+            </div>
+
+            <!-- Icons -->
+            <div class="icons-nav">
+                <a href="{% url 'cart' %}"><i class="fas fa-shopping-cart"></i></a>
+                <a href="#location"><i class="fas fa-map-marker-alt"></i></a>
+                <a href="{% url 'wishlist' %}"><i class="fas fa-heart"></i></a>
+            </div>
+            
+            <!-- Menu -->
+            <div class="menu">
+                <a href="{% url 'home' %}">Home</a>
+                <a href="#working-section">How it Works</a>
+                <a href="{% url 'shop' %}">Shop</a>
+                <a href="#support">Support</a>
+                {% if user.is_authenticated %}
+                    <a href="{% url 'profile' %}">Profile</a>
+                    <a href="{% url 'logout' %}">Logout</a>
+                {% else %}
+                    <a href="{% url 'login' %}">Login</a>
+                {% endif %}
+            </div>
+
+            <!-- Mobile -->
+            <div class="hamburger" id="hamburger"><i class="fas fa-bars"></i></div>
+        </nav>
+
+        <!-- MOBILE OVERLAY MENU -->
+        <div class="menu-overlay" id="mobileMenu">
+            <div class="close-menu" id="closeMenu"><i class="fas fa-times"></i></div>
+
+            <!-- User Info -->
+            <div class="mobile-header">
+                {% if user.is_authenticated %}
+                    <img src="{% if user.profile_picture %}{{ user.profile_picture.url }}{% else %}{% static 'images/default-avatar.png' %}{% endif %}" alt="User">
+                    <div class="user-info">
+                        <span>Hi, {{ user.first_name|default:user.username }}</span>
+                        <small>Welcome back 👋</small>
+                    </div>
+                {% else %}
+                    <div class="user-info">
+                        <span>Welcome Guest</span>
+                        <small>Please login to continue</small>
+                    </div>
+                {% endif %}
+            </div>
+
+            <!-- Mobile Search -->
+            <div class="mobile-search">
+                <form method="GET" action="{% url 'shop' %}">
+                    <input type="text" name="search" placeholder="Search..." />
+                    <i class="fas fa-search"></i>
+                </form>
+            </div>
+
+            <!-- Menu Links -->
+            <div class="menu-links">
+                <a href="{% url 'home' %}"><i class="fas fa-home"></i> Home</a>
+                <a href="{% url 'shop' %}"><i class="fas fa-shopping-bag"></i> Shop</a>
+                <a href="#working-section"><i class="fas fa-cogs"></i> How it Works</a>
+                <a href="{% url 'wishlist' %}"><i class="fas fa-heart"></i> Wishlist</a>
+                <a href="{% url 'cart' %}"><i class="fas fa-shopping-cart"></i> Cart</a>
+                {% if user.is_authenticated %}
+                    <a href="{% url 'profile' %}"><i class="fas fa-user"></i> Profile</a>
+                    <a href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                {% else %}
+                    <a href="{% url 'login' %}"><i class="fas fa-sign-in-alt"></i> Login</a>
+                    <a href="{% url 'register' %}"><i class="fas fa-user-plus"></i> Register</a>
+                {% endif %}
+            </div>
+
+            <!-- Support Collapsible -->
+            <div class="support-section">
+                <button id="supportToggleBtn">
+                    Support (10AM - 9PM) 
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="support-items" id="supportItems">
+                    <div class="support-item">
+                        <i class="fas fa-phone"></i>
+                        <span>+91 959-959-5513 (WhatsApp)</span>
+                    </div>
+                    <div class="support-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>care@saarvin.com</span>
+                    </div>
+                    <div class="support-item">
+                        <i class="fas fa-clock"></i>
+                        <span>10AM - 7PM (Mon-Sat)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>

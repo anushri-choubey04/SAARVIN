@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Category Page</title>
+  </head>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: sans-serif;
+    }
+
+    body {
+      background: #fff;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: row;
+      min-height: 100vh;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 25%;
+      max-width: 220px;
+      border-right: 1px solid #0d0101;
+      padding: 20px;
+      background: #f9f9f9;
+    }
+
+    .sidebar ul {
+      list-style: symbols(none);
+      padding: 0;
+      margin: 0;
+      font-size: 18px;
+      font-weight: 500;
+    }
+
+    .sidebar li {
+      padding: 12px 8px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: 0.2s;
+      font-family: Georgia, "Times New Roman", Times, serif;
+    }
+
+    .sidebar li:hover {
+      background-color: #c0b3b3;
+      font-weight: bold;
+    }
+
+    .sidebar h2 {
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+      padding: 0 20px;
+      font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
+        sans-serif;
+      color: #168e04;
+    }
+
+    /* Main content */
+    .main-content {
+      flex: 1;
+      padding: 20px;
+    }
+
+    #category-title {
+      font-size: 22px;
+      margin-bottom: 20px;
+      font-weight: bold;
+    }
+
+    .item-grid {
+      display: grid;
+      grid-template-columns: repeat(2,2fr);
+      gap: 16px;
+      
+    }
+
+    .item-grid .item {
+      text-align: center;
+      height: auto;
+      padding: 10px;
+      border-radius: 8px;
+      background-color: #fff;
+      
+    }
+
+    .item img {
+      width: 100%;
+      height: auto;
+      border-radius: 30px;
+    }
+
+    .item p {
+      margin-top: 8px;
+      font-size: 14px;
+    }
+
+    /* Close button */
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 24px;
+      color: #150303;
+      cursor: pointer;
+      z-index: 10;
+      font-weight: bold;
+    }
+
+    .close-btn:hover {
+      color: #168e04;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: row;
+      }
+
+      .sidebar {
+        width: 35%;
+      }
+
+      .main-content {
+        width: 65%;
+        padding: 15px;
+      }
+
+      #category-title {
+        font-size: 18px;
+        font-family: Georgia, "Times New Roman", Times, serif;
+      }
+
+      .item-grid {
+        grid-template-columns: repeat(2, 2fr);
+      }
+    }
+  </style>
+  <body>
+    <div class="close-btn" onclick="goBack()">✖</div>
+    <div class="container">
+      <!-- Sidebar -->
+      <aside class="sidebar">
+        <ul id="categoryList">
+          <h2 >Category</h2>
+          <li data-category="NEW IN">NEW IN</li>
+          <li data-category="SALE">SALE</li>
+          <li data-category="MENS">MENS</li>
+          <li data-category="WOMEN">WOMEN</li>
+          <li data-category="KIDS">KIDS</li>
+        </ul>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="main-content">
+        <h2 id="category-title">NEW IN</h2>
+        <div id="category-items" class="item-grid"></div>
+      </main>
+    </div>
+
+    <script>
+      const categoryData = {
+        "NEW IN": [
+          {
+            title: "Summer Collection",
+            image: "",
+          },
+          {
+            title: "Floral Tops",
+            image:
+              "https://images.unsplash.com/photo-1585487000143-9bcec9b8e483?w=1200",
+          },
+        ],
+        SALE: [
+          {
+            title: "Sale Dresses",
+            image:
+              "https://images.unsplash.com/photo-1595777457583-95e059d581b8?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80",
+          },
+          {
+            title: "Sale Tops",
+            image:
+              "https://images.unsplash.com/photo-1602810310596-fb6c92fcf4f7?w=400",
+          },
+        ],
+        MENS: [
+          {
+            title: "Tuxedo",
+            image: "images/sherwani.jpeg",
+          },
+          {
+            title: "Sherwani",
+            image: "images/sherwani2.jpeg",
+          },
+          {
+            title: "Coat",
+            image: "images/coat.jpeg",
+          },
+          {
+            title: "Kurta",
+            image: "images/tuexdo.jpeg",
+          },
+        ],
+        WOMEN: [
+          {
+            title: "Lehenga",
+            image:
+              "https://images.unsplash.com/photo-1574323347407-11c966b768cd?w=400",
+          },
+          {
+            title: "Saree",
+            image:
+              "https://images.unsplash.com/photo-1622450408475-e7b2713b6ef7?w=400",
+          },
+        ],
+        KIDS: [
+          {
+            title: "frock",
+            image:
+              "https://images.unsplash.com/photo-1592878849127-3e23b8d88b82?w=400",
+          },
+        ],
+      };
+
+      const categoryList = document.getElementById("categoryList");
+      const title = document.getElementById("category-title");
+      const itemsContainer = document.getElementById("category-items");
+
+      // Load default category
+      window.onload = () => {
+        loadCategory("NEW IN");
+      };
+
+      // On category click
+      categoryList.addEventListener("click", (e) => {
+        const category = e.target.getAttribute("data-category");
+        if (category) {
+          loadCategory(category);
+        }
+      });
+
+      function loadCategory(category) {
+        title.textContent = category;
+        const items = categoryData[category] || [];
+        itemsContainer.innerHTML = "";
+
+        if (items.length === 0) {
+          itemsContainer.innerHTML = "<p>No items in this category.</p>";
+        }
+
+        items.forEach((item) => {
+          const div = document.createElement("div");
+          div.className = "item";
+          div.innerHTML = `
+      <img src="${item.image}" alt="${item.title}">
+      <p>${item.title}</p>
+    `;
+          itemsContainer.appendChild(div);
+        });
+      }
+      function goBack() {
+        window.history.back();
+      }
+    </script>
+  </body>
+</html>

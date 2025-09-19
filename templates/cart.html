@@ -1,0 +1,156 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Shopping Cart - SAARVIN RENT{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+    <h1 class="text-3xl font-bold mb-8">Shopping Cart</h1>
+    
+    {% if cart_items %}
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Cart Items -->
+            <div class="lg:col-span-2">
+                <div class="space-y-4">
+                    {% for item in cart_items %}
+                    <div class="bg-white rounded-lg shadow-md p-6 border">
+                        <div class="flex items-center space-x-4">
+                            <!-- Product Image -->
+                            <div class="flex-shrink-0">
+                                {% if item.product.images.first and item.product.images.first.image and item.product.images.first.image.name %}
+                                    <img src="{{ item.product.images.first.image.url }}" 
+                                         alt="{{ item.product.name }}" 
+                                         class="w-24 h-24 object-cover rounded-lg">
+                                {% else %}
+                                    <img src="{% static 'images/default-product.jpg' %}" 
+                                         alt="{{ item.product.name }}" 
+                                         class="w-24 h-24 object-cover rounded-lg">
+                                {% endif %}
+                            </div>
+                            
+                            <!-- Product Details -->
+                            <div class="flex-grow">
+                                <h3 class="text-lg font-semibold text-gray-900">{{ item.product.name }}</h3>
+                                <p class="text-sm text-gray-600">{{ item.product.category.name }} - {{ item.product.size }}</p>
+                                <p class="text-sm text-gray-500">{{ item.product.brand|default:"No brand" }}</p>
+                                
+                                <!-- Rental Period -->
+                                <div class="mt-2">
+                                    <p class="text-sm text-gray-600">
+                                        <span class="font-medium">Rental Period:</span>
+                                        {{ item.start_date|date:"M d, Y" }} - {{ item.end_date|date:"M d, Y" }}
+                                    </p>
+                                    <p class="text-sm text-gray-600">
+                                        <span class="font-medium">Duration:</span> {{ item.total_days }} day{{ item.total_days|pluralize }}
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            <!-- Price and Actions -->
+                            <div class="flex flex-col items-end space-y-2">
+                                <div class="text-right">
+                                    <p class="text-lg font-bold text-gray-900">₹{{ item.total_amount }}</p>
+                                    <p class="text-sm text-gray-600">₹{{ item.product.rental_price_per_day }}/day</p>
+                                </div>
+                                
+                                <!-- Remove Button -->
+                                <button onclick="removeFromCart({{ item.id }})" 
+                                        class="text-red-600 hover:text-red-800 text-sm font-medium">
+                                    Remove
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            
+            <!-- Order Summary -->
+            <div class="lg:col-span-1">
+                <div class="bg-white rounded-lg shadow-md p-6 border sticky top-4">
+                    <h2 class="text-xl font-bold mb-4">Order Summary</h2>
+                    
+                    <div class="space-y-3 mb-6">
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">Subtotal</span>
+                            <span class="font-medium">₹{{ total_amount }}</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">Delivery Fee</span>
+                            <span class="font-medium">₹50</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">Security Deposit</span>
+                            <span class="font-medium">₹{{ total_amount|floatformat:0|add:500 }}</span>
+                        </div>
+                        <hr class="my-3">
+                        <div class="flex justify-between text-lg font-bold">
+                            <span>Total</span>
+                            <span>₹{{ total_amount|floatformat:0|add:550 }}</span>
+                        </div>
+                    </div>
+                    
+                    <button onclick="proceedToCheckout()" 
+                            class="w-full bg-blue-600 text-white py-3 px-4 rounded-lg font-medium hover:bg-blue-700 transition duration-200">
+                        Proceed to Checkout
+                    </button>
+                    
+                    <p class="text-xs text-gray-500 mt-4 text-center">
+                        Security deposit will be refunded upon return
+                    </p>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <!-- Empty Cart -->
+        <div class="text-center py-12">
+            <div class="mx-auto w-24 h-24 text-gray-400 mb-4">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 5M7 13l2.5 5m6-5v6a2 2 0 01-2 2H9a2 2 0 01-2-2v-6m8 0V9a2 2 0 00-2-2H9a2 2 0 00-2 2v4.01"></path>
+                </svg>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-900 mb-2">Your cart is empty</h3>
+            <p class="text-gray-600 mb-6">Add some items to get started!</p>
+            <a href="{% url 'shop' %}" 
+               class="inline-block bg-blue-600 text-white py-2 px-6 rounded-lg font-medium hover:bg-blue-700 transition duration-200">
+                Continue Shopping
+            </a>
+        </div>
+    {% endif %}
+</div>
+
+<script>
+// Remove item from cart
+function removeFromCart(cartItemId) {
+    if (confirm('Are you sure you want to remove this item from your cart?')) {
+        fetch('/api/cart/remove/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]')?.value || ''
+            },
+            body: JSON.stringify({ cart_item_id: cartItemId })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.message) {
+                alert(data.message);
+                location.reload(); // Refresh the page
+            } else if (data.error) {
+                alert(data.error);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred while removing the item');
+        });
+    }
+}
+
+// Proceed to checkout
+function proceedToCheckout() {
+    alert('Checkout functionality will be implemented soon!');
+    // TODO: Implement checkout process
+}
+</script>
+{% endblock %}

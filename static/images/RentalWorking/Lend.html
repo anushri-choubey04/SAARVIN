@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How To Lend</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+<style>
+    /* Navigation Tabs */
+    .tabs-nav {
+      display: flex;
+      justify-content: center;
+      background: #f8f8f8;
+      border-radius: 9999px;
+      margin: 30px auto;
+      padding: 8px;
+      max-width: 650px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+    }
+
+    .tab-link {
+      flex: 1;
+      text-align: center;
+      padding: 12px 25px;
+      margin: 0 4px;
+      border-radius: 9999px;
+      font-weight: 600;
+      font-size: 1rem;
+      color: #333;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    /* Hover effect */
+    .tab-link:hover {
+      background: #333;
+      color: #fff;
+    }
+
+    /* Active tab (current page) */
+    .tab-link.active {
+      background: #000;
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body class="bg-gray-50 font-sans">
+
+  <!-- Tabs Navigation -->
+  <div class="tabs-nav">
+    <a href="Rent.html" class="tab-link">How to Rent</a>
+    <a href="Lend.html" class="tab-link">How to Earn</a>
+    <a href="Delivery.html" class="tab-link">How Delivery Works</a>
+  </div>
+
+
+
+  <section class="py-20">
+    <!-- Heading -->
+    <h2 class="text-4xl md:text-5xl font-bold text-center text-gray-800 mb-14">
+      How To <span class="text-green-700">Earn</span>
+    </h2>
+
+    <!-- Steps -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-10 max-w-6xl mx-auto px-6">
+
+      <!-- Step 1 -->
+      <div class="bg-white rounded-2xl shadow-lg p-8 text-center hover:-translate-y-2 hover:shadow-2xl transition-all duration-300">
+        <div class="w-20 h-20 mx-auto flex items-center justify-center rounded-full bg-green-100 mb-6">
+          <img src="https://img.icons8.com/ios/100/2e7d32/add-image.png" alt="Upload Clothes" class="w-12 h-12">
+        </div>
+        <h3 class="text-2xl font-semibold text-gray-800 mb-2">1. Upload your items</h3>
+        <p class="text-gray-600">List your clothes, accessories, or shoes with photos and details to start earning.</p>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="bg-white rounded-2xl shadow-lg p-8 text-center hover:-translate-y-2 hover:shadow-2xl transition-all duration-300">
+        <div class="w-20 h-20 mx-auto flex items-center justify-center rounded-full bg-green-100 mb-6">
+          <img src="https://img.icons8.com/ios/100/2e7d32/price-tag.png" alt="Set Price" class="w-12 h-12">
+        </div>
+        <h3 class="text-2xl font-semibold text-gray-800 mb-2">2. Get Approval</h3>
+        <p class="text-gray-600">Our team review your uploaded images,once approved,we will call you to guide the next process.</p>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="bg-white rounded-2xl shadow-lg p-8 text-center hover:-translate-y-2 hover:shadow-2xl transition-all duration-300">
+        <div class="w-20 h-20 mx-auto flex items-center justify-center rounded-full bg-green-100 mb-6">
+          <img src="https://img.icons8.com/ios/100/2e7d32/parcel.png" alt="Deliver Items" class="w-12 h-12">
+        </div>
+        <h3 class="text-2xl font-semibold text-gray-800 mb-2">3. Deliver safely</h3>
+        <p class="text-gray-600">Choose local delivery, shipping, or in-person handover — whatever works best for you.</p>
+      </div>
+
+      <!-- Step 4 -->
+      <div class="bg-white rounded-2xl shadow-lg p-8 text-center hover:-translate-y-2 hover:shadow-2xl transition-all duration-300">
+        <div class="w-20 h-20 mx-auto flex items-center justify-center rounded-full bg-green-100 mb-6">
+          <img src="https://img.icons8.com/ios/100/2e7d32/money-bag.png" alt="Earn Money" class="w-12 h-12">
+        </div>
+        <h3 class="text-2xl font-semibold text-gray-800 mb-2">4. Earn on every Rental</h3>
+        <p class="text-gray-600">Get paid once your items are rented out and enjoy extra income with ease!</p>
+      </div>
+
+    </div>
+  </section>
+  <!-- Upload Form Section -->
+<section class="py-16 bg-white">
+  <div class="max-w-6xl mx-auto px-6">
+    <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-800 mb-10">
+      List Your <span class="text-green-700">Outfit</span>
+    </h2>
+
+    <form action="#" method="POST" enctype="multipart/form-data" class="bg-gray-50 shadow-lg rounded-2xl p-8 space-y-6">
+      
+      <!-- Upload Images -->
+      <div>
+        <label class="block text-lg font-semibold text-gray-700 mb-4">Upload Image *</label>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="border-2 border-dashed border-gray-300 rounded-xl flex flex-col items-center justify-center p-6">
+            <span class="text-gray-500">Front Side</span>
+            <input type="file" name="frontImage" class="mt-2 text-sm text-gray-600">
+          </div>
+          <div class="border-2 border-dashed border-gray-300 rounded-xl flex flex-col items-center justify-center p-6">
+            <span class="text-gray-500">Back View</span>
+            <input type="file" name="backImage" class="mt-2 text-sm text-gray-600">
+          </div>
+          <div class="border-2 border-dashed border-gray-300 rounded-xl flex flex-col items-center justify-center p-6">
+            <span class="text-gray-500">Close Up</span>
+            <input type="file" name="closeImage" class="mt-2 text-sm text-gray-600">
+          </div>
+        </div>
+      </div>
+
+      <!-- Form Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <label class="block text-gray-700 font-medium mb-1">Full Name *</label>
+          <input type="text" name="fullname" placeholder="Enter Your Full Name" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-green-500">
+        </div>
+
+        <div>
+          <label class="block text-gray-700 font-medium mb-1">Designer / Brand *</label>
+          <input type="text" name="brand" placeholder="Enter designer or brand name" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-green-500">
+        </div>
+
+        <div>
+          <label class="block text-gray-700 font-medium mb-1">Year of Purchase *</label>
+          <input type="number" name="year" placeholder="Enter Year" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-green-500">
+        </div>
+
+        <div>
+          <label class="block text-gray-700 font-medium mb-1">Month of Purchase *</label>
+          <select name="month" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-green-500">
+            <option>-- Please Select --</option>
+            <option>January</option><option>February</option><option>March</option>
+            <option>April</option><option>May</option><option>June</option>
+            <option>July</option><option>August</option><option>September</option>
+            <option>October</option><option>November</option><option>December</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-gray-700 font-medium mb-1">Size *</label>
+          <select name="size" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-green-500">
+            <option>Select</option>
+            <option>XS</option><option>S</option><option>M</option>
+            <option>L</option><option>XL</option><option>XXL</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-gray-700 font-medium mb-1">Category *</label>
+          <select name="category" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-green-500">
+            <option>Select</option>
+            <option>Bridal Lehenga</option>
+            <option>Designer Lehenga</option>
+            <option>Sherwani</option>
+            <option>Gown</option>
+            <option>Indo-Western</option>
+            <option>Tuxedo</option>
+            <option>Other</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-gray-700 font-medium mb-1">MRP *</label>
+          <input type="number" name="mrp" placeholder="Enter purchase cost" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-green-500">
+        </div>
+
+        <div>
+          <label class="block text-gray-700 font-medium mb-1">Mobile Number *</label>
+          <input type="tel" name="mobile" placeholder="Enter your Mobile Number" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-green-500">
+        </div>
+
+        <div>
+          <label class="block text-gray-700 font-medium mb-1">Email Id *</label>
+          <input type="email" name="email" placeholder="Enter your Email Id" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-green-500">
+        </div>
+
+        <div>
+          <label class="block text-gray-700 font-medium mb-1">Pickup Address *</label>
+          <input type="text" name="pickup" placeholder="Enter pickup address" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-green-500">
+        </div>
+
+        <div>
+          <label class="block text-gray-700 font-medium mb-1">City *</label>
+          <input type="text" name="city" placeholder="Enter your city" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-green-500">
+        </div>
+
+        <div>
+          <label class="block text-gray-700 font-medium mb-1">Pincode *</label>
+          <input type="number" name="pincode" placeholder="Enter your pincode" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-green-500">
+        </div>
+
+        <div>
+          <label class="block text-gray-700 font-medium mb-1">Do you have bill? *</label>
+          <select name="bill" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-green-500">
+            <option>Select</option>
+            <option>Yes</option>
+            <option>No</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Submit Button -->
+      <div class="text-center">
+        <button type="submit" class="px-8 py-3 bg-green-700 text-white font-semibold rounded-xl shadow hover:bg-green-800 transition-all">
+          Submit
+        </button>
+      </div>
+    </form>
+
+    <!-- Info -->
+    <p class="text-center text-gray-600 mt-6">
+      What you can lease: <strong>Ethnic wear and Western wear</strong> <br>
+      Bridal Lehengas, Side Lehengas, Sherwanis, Gowns, Indo-Western Outfits, Tuexdo
+    </p>
+  </div>
+</section>
+
+</body>
+<script>
+  const navLinks = document.querySelectorAll(".tabs-nav a");
+  const currentPage = window.location.href.toLowerCase(); // full URL lo
+
+  navLinks.forEach((link) => {
+    if (currentPage.includes(link.getAttribute("href").toLowerCase())) {
+      link.classList.add("active");
+    }
+  });
+</script>
+</html>
