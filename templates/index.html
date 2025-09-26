@@ -104,7 +104,7 @@
     <div class="max-w-7xl mx-auto scrollbar-none">
         <div id="categoriesContainer" class="flex space-x-6 overflow-x-auto md:grid md:grid-cols-4 lg:grid-cols-7 md:gap-6 text-center px-4 md:px-0 scrollbar-hide">
             {% for category in categories %}
-            <div class="category-item" onclick="filterByCategory({{ category.id }})">
+            <div class="category-item" onclick="filterByCategory('{{ category.id }}')">
                 <div class="category-icon">
                     {% if category.image %}
                         <img src="{{ category.image.url }}" alt="{{ category.name }}">
@@ -128,7 +128,9 @@
             <div class="card-saarvin">
                 <h3>How to rent</h3>
                 <p>Get your hands on designer pieces without breaking the bank.</p>
-                <a href="#rent">View Details →</a>
+                
+                <a href="{% static 'images/RentalWorking/Rent.html' %}">View Details →</a>
+                
             </div>
         </div>
         
@@ -137,7 +139,7 @@
             <div class="card-saarvin">
                 <h3>How to Earn Money</h3>
                 <p>Make money on your favourite pieces that you can't wear all the time.</p>
-                <a href="#lend">View Details →</a>
+                <a href="{% static 'images/RentalWorking/Lend.html' %}">View Details →</a>
             </div>
         </div>
         
@@ -146,7 +148,7 @@
             <div class="card-saarvin">
                 <h3>How delivery works</h3>
                 <p>Get your rentals delivered right to your doorstep with our convenient delivery service.</p>
-                <a href="#delivery">View Details →</a>
+                <a href="{% static 'images/RentalWorking/Delivery.html' %}">View Details →</a>
             </div>
         </div>
     </div>
@@ -169,7 +171,7 @@
                         {% else %}
                             <img src="{% static 'images/default-product.jpg' %}" alt="{{ product.name }}">
                         {% endif %}
-                        <div class="wishlist-icon" onclick="toggleWishlist({{ product.id }})">
+                        <div class="wishlist-icon" onclick="toggleWishlist('{{ product.id }}')">
                             <i class="fas fa-heart"></i>
                         </div>
                     </div>
@@ -177,7 +179,7 @@
                         <div class="product-name">{{ product.name }}</div>
                         <div class="product-price">₹{{ product.rental_price_per_day }}/day</div>
                         <div class="product-size">{{ product.size }}</div>
-                        <button class="add-to-cart-btn" onclick="addToCart({{ product.id }})">
+                        <button class="add-to-cart-btn" onclick="addToCart('{{ product.id }}')">
                             Add to Cart
                         </button>
                     </div>
@@ -207,26 +209,32 @@
 </main>
 
 <!-- Price Section -->
-<div class="price-section">
+<div class="rent-section-price">
     <h2>RENT BY PRICE</h2>
-    <div class="price-cards">
-        <div class="price-card" onclick="filterByPrice(0, 2000)">
+ <div class="rent-grid-container">
+    
+        <div class="rent-card-price" onclick="filterByPrice(0, 2000)">
+            <img src="{% static 'images/default-product.jpg' %}" alt="Under 2K">
             <h3>Under 2K</h3>
-            <p>UNDER 2K</p>
+            <p class="rent-label">UNDER 2K</p>
         </div>
-        <div class="price-card" onclick="filterByPrice(2000, 4000)">
+        <div class="rent-card-price" onclick="filterByPrice(2000, 4000)">
+            <img src="{% static 'images/default-product.jpg' %}" alt="Under 2K">
             <h3>Under 4K</h3>
-            <p>UNDER 4K</p>
+            <p class="rent-label">UNDER 4K</p>
         </div>
-        <div class="price-card" onclick="filterByPrice(4000, 6000)">
+        <div class="rent-card-price" onclick="filterByPrice(4000, 6000)">
+            <img src="{% static 'images/default-product.jpg' %}" alt="Under 2K">
             <h3>Under 6K</h3>
-            <p>UNDER 6K</p>
+            <p class="rent-label">UNDER 6K</p>
         </div>
-        <div class="price-card" onclick="filterByPrice(6000, 8000)">
+        <div class="rent-card-price" onclick="filterByPrice(6000, 8000)">
+            <img src="{% static 'images/default-product.jpg' %}" alt="Under 2K">
             <h3>Under 8K</h3>
-            <p>UNDER 8K</p>
+            <p class="rent-label">UNDER 8K</p>
         </div>
-    </div>
+
+  </div>  
 </div>
 {% endblock %}
 
@@ -292,3 +300,4 @@ function filterByPrice(minPrice, maxPrice) {
 }
 </script>
 {% endblock %}
+

@@ -24,7 +24,7 @@
                     {% endif %}
                     
                     <!-- Wishlist Remove Button -->
-                    <button onclick="removeFromWishlist({{ item.product.id }})" 
+                    <button onclick="removeFromWishlist('{{ item.product.id }}')" 
                             class="absolute top-2 right-2 bg-white rounded-full p-2 shadow-md hover:bg-red-50 transition-colors duration-200">
                         <svg class="w-5 h-5 text-red-500" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd"></path>
@@ -46,7 +46,7 @@
                     
                     <!-- Action Buttons -->
                     <div class="space-y-2">
-                        <button onclick="addToCart({{ item.product.id }})" 
+                        <button onclick="addToCart('{{ item.product.id }}')" 
                                 class="w-full bg-blue-600 text-white py-2 px-4 rounded-lg font-medium hover:bg-blue-700 transition duration-200 flex items-center justify-center gap-2">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 5M7 13l2.5 5m6-5v6a2 2 0 01-2 2H9a2 2 0 01-2-2v-6m8 0V9a2 2 0 00-2-2H9a2 2 0 00-2 2v4.01"></path>

@@ -3,7 +3,7 @@
     const searchBox = document.getElementById("searchBox");
     const suggestions = document.getElementById("suggestions");
 
-    const data = ["Saree", "Lehenga", "Kurta", "Western Dress", "Party Wear", "Sherwani", "Jewellery", "Handbags"];
+    const data = ["Saree", "Lehenga", "Kurta", "Western Dress", "Party Wear", "Sherwani"];
 
     searchBox?.addEventListener("input", () => {
       let value = searchBox.value.toLowerCase();

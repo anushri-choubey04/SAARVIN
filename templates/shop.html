@@ -17,7 +17,7 @@
         {% else %}
           <img src="{% static 'images/default-product.jpg' %}" alt="{{ product.name }}" class="default-img">
         {% endif %}
-        <div class="wishlist-icon" onclick="toggleWishlist({{ product.id }})">
+        <div class="wishlist-icon" onclick="toggleWishlist('{{ product.id }}')">
           <i data-lucide="heart"></i>
         </div>
       </div>
@@ -37,7 +37,7 @@
           <div class="offer">{{ product.brand|default:"" }}</div>
         </div>
         <div class="get-price">Size: <strong>{{ product.size }}</strong></div>
-        <button class="add-to-cart-btn" onclick="addToCart({{ product.id }})">
+        <button class="add-to-cart-btn" onclick="addToCart('{{ product.id }}')">
           Add to Cart
         </button>
       </div>
