@@ -1,0 +1,248 @@
+/* Quick View Section Advanced Design */
+.quick-view {
+  background: rgb(211, 212, 213);
+  border-radius: 2rem;
+  box-shadow: 0 8px 32px rgba(60, 60, 120, 0.12);
+  margin: 2rem auto;
+  
+}
+
+.quick-view-header h2 {
+  font-size: 3.3rem;
+  font-weight: 700;
+  color: black;
+  text-align: center;
+  margin-bottom: 1rem;
+  letter-spacing: 2px;
+  text-shadow: 0 2px 8px rgba(46, 125, 50, 0.08);
+  margin:1rem;
+  padding:1.5rem;
+}
+
+.swiper {
+  position: relative;
+  padding-bottom: 2rem;
+  margin:1.5rem;
+  
+  
+}
+
+.swiper-wrapper {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding-bottom: 1rem;
+}
+
+.swiper-slide {
+  min-width: 320px;
+  max-width: 340px;
+  background: #fff;
+  border-radius: 1.5rem;
+  box-shadow: 0 4px 24px rgba(46, 125, 50, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+  margin-right: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.swiper-slide:hover {
+  transform: translateY(-8px) scale(1.03);
+  box-shadow: 0 8px 32px rgba(46, 125, 50, 0.18);
+}
+
+.product-card {
+ height:500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+}
+
+.product-image-quick {
+  position: relative;
+  width: 340px;
+  height: 400px;
+  margin-bottom: 1.2rem;
+  border-radius: 1rem;
+  overflow: hidden;
+  background: linear-gradient(120deg, #e0f7fa 0%, #f1f8e9 100%);
+  box-shadow: 0 2px 12px rgba(46, 125, 50, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.product-image-quick img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 1rem;
+  transition: transform 0.3s;
+}
+
+.product-image-quick :hover {
+  transform: scale(1.08);
+}
+
+.wishlist-icon {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: 50%;
+  padding: 0.5rem;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(46, 125, 50, 0.1);
+  transition: background 0.2s;
+}
+
+.wishlist-icon:hover {
+  background: #2e7d32;
+}
+
+.wishlist-icon i {
+  color: #e53935;
+  font-size: 1.3rem;
+  transition: color 0.2s;
+}
+
+.product-info-quick {
+  text-align: center;
+  margin: 1rem;
+}
+
+.product-name {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 0.2rem;
+}
+
+.product-price {
+  font-size: 1.1rem;
+  color: #2e7d32;
+  font-weight: 500;
+  margin-bottom: 0.2rem;
+}
+
+.product-size {
+  font-size: 1rem;
+  color: #607d8b;
+  margin-bottom: 0.8rem;
+}
+
+.add-to-cart-btn {
+  background: linear-gradient(90deg, #2e7d32 0%, #43a047 100%);
+  color: #fff;
+  font-weight: 600;
+  padding: 0.7rem 1.5rem;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(46, 125, 50, 0.1);
+  transition: background 0.2s, transform 0.2s;
+}
+
+.add-to-cart-btn:hover {
+  background: linear-gradient(90deg, #43a047 0%, #2e7d32 100%);
+  transform: scale(1.05);
+}
+
+.custom-nav-quick {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #fff;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  box-shadow: 0 2px 8px rgba(46, 125, 50, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 2;
+  transition: background 0.2s;
+}
+
+.swiper-button-prev {
+  left: 1px;
+  font-size:1px;
+}
+
+.swiper-button-next {
+  right: 1px;
+  font-size:1px;
+}
+
+.swiper-button-next:after{
+  font-size:2rem;
+  color:black;
+}
+.swiper-button-prev:after{
+  font-size:2rem;
+  color:black;
+}
+.custom-nav-quick:hover {
+  background: #2e7d32;
+}
+
+
+
+.swiper-pagination {
+  text-align: center;
+  margin-top: 1.5rem;
+}
+
+@media (max-width: 900px) {
+  .quick-view {
+    padding: 2rem;
+    max-width: 100%;
+  }
+  .swiper-slide {
+    min-width: 240px;
+    max-width: 260px;
+  }
+  .product-image-quick {
+    width: 200px;
+    height: 500px;
+  }
+}
+
+@media (max-width: 600px) {
+  .quick-view{
+    max-width:100%;
+    height:600px;
+  }
+  .quick-view-header h2 {
+    font-size: 2.2rem;
+    margin: 1px auto;
+    text-align: center;
+    padding:1px;
+  }
+  .swiper{
+    padding:1px;
+    margin:1px;
+  }
+  .swiper-slide {
+    min-width: 250px;
+    max-width: 200px;
+    margin: 1.1rem;
+  }
+  .product-image-quick {
+   width:250px;
+    height: 500px;
+  }
+  .product-card{
+    height: 450px;
+    width:400px;
+  }
+  .product-info-quick{
+    margin:2px;
+    text-align:center;
+    padding:4px;
+  }
+}
