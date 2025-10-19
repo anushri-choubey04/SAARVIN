@@ -1,0 +1,261 @@
+{% extends 'base.html' %}
+ {% load static %}
+  {% block title %}ProductDetails -SAARVIN RENT{% endblock %} 
+  {% block content %}
+<div class="container">
+  <!-- Left Side: Images -->
+  <section class="gallery">
+    <div class="thumbnails">
+      <img
+        src="{% static 'images/ProductDetails/Dress1.png' %}"
+        alt="Dress front full"
+        onclick="changeImage(this)"
+      />
+      <img
+        src="{% static 'images/ProductDetails/dress2.png' %}"
+        alt="Dress front"
+        onclick="changeImage(this)"
+      />
+      <img
+        src="{% static 'images/ProductDetails/dress3.png' %}"
+        alt="Dress back"
+        onclick="changeImage(this)"
+      />
+      <img
+        src="{% static 'images/ProductDetails/dress4.png' %}"
+        alt="Dress side"
+        onclick="changeImage(this)"
+      />
+    </div>
+    <div class="main-image">
+      <img
+        id="currentImage"
+        src="{% static 'images/ProductDetails/Dress1.png' %}"
+        alt="Main dress view"
+      />
+    </div>
+  </section>
+
+  <!-- Right Side: Product Info -->
+  <section class="details">
+    <h2>Clara Maxi Dress In Yellow</h2>
+
+    <p class="description">
+      The Clara Maxi Dress by Cherie Attire stands out with its form fitting
+      design and elegant soft yellow colour hue. This strapless maxi features a
+      tailored
+      <strong>corset</strong> bodice that shapes the waist, complemented by
+      graceful draping that cascades into a sweeping floor-length skirt. Ideal
+      for formal occasions and gala evenings, it offers an lace-up corset fit
+      that enhances your silhouette.
+    </p>
+    <p class="price">Price: 999</p>
+
+    <!-- Size Selector -->
+    <div class="size-selector">
+      <p>Size</p>
+      <button class="size-btn active">XS</button>
+      <button class="size-btn">S</button>
+      <a href="#" class="size-chart">Size chart</a>
+    </div>
+
+    <!-- Rental Dates -->
+    <div class="rental">
+      <p>Rental dates</p>
+      <div class="rental-options">
+        <button class="rental-btn active">4 days <span>2000</span></button>
+        <button class="rental-btn">8 days <span>8000</span></button>
+      </div>
+      <div class="date-inputs">
+        <label>Start date <input type="date" /></label>
+        <label>End date <input type="date" /></label>
+      </div>
+    </div>
+
+    <button class="add-cart">Rent Now</button>
+  </section>
+</div>
+
+<style>
+  
+
+  /* Main Layout */
+  .container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    padding: 2rem;
+  }
+
+  /* Gallery */
+  .gallery {
+    flex: 1 1 40%;
+    display: flex;
+    gap: 1rem;
+  }
+  .thumbnails {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .thumbnails img {
+    width: 70px;
+    cursor: pointer;
+    border: 2px solid transparent;
+    border-radius: 8px;
+  }
+  .thumbnails img:hover {
+    border: 2px solid #000;
+  }
+  .main-image img {
+    width: 100%;
+    max-width: 400px;
+    border-radius: 12px;
+  }
+
+  /* Product Details */
+  .details {
+    flex: 1 1 50%;
+  }
+  .details h2 {
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+  }
+  .reorder {
+    font-weight: bold;
+    color: #b12704;
+    margin-bottom: 1rem;
+  }
+  .description {
+    margin-bottom: 1rem;
+    color: #444;
+  }
+  .price {
+    font-weight: bold;
+    margin: 1rem 0;
+    font-size: 1.2rem;
+  }
+
+  /* Sizes */
+  .size-selector {
+    margin: 1rem 0;
+  }
+  .size-btn {
+    border: 1px solid #aaa;
+    padding: 0.5rem 1rem;
+    margin-right: 0.5rem;
+    background: #f9f9f9;
+    cursor: pointer;
+    border-radius: 6px;
+  }
+  .size-btn.active,
+  .size-btn:hover {
+    background: #000;
+    color: #fff;
+  }
+  .size-chart {
+    margin-left: 1rem;
+    font-size: 0.85rem;
+    color: #555;
+  }
+
+  /* Rental Section */
+  .rental p {
+    margin-bottom: 0.5rem;
+  }
+  .rental-options {
+    margin-bottom: 1rem;
+  }
+  .rental-btn {
+    border: 1px solid #aaa;
+    background: #f9f9f9;
+    padding: 0.7rem 1.2rem;
+    margin-right: 0.5rem;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  .rental-btn span {
+    display: block;
+    font-size: 0.85rem;
+    color: #333;
+  }
+  .rental-btn.active,
+  .rental-btn:hover {
+    background: #000;
+    color: #fff;
+  }
+  .date-inputs {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  .date-inputs label {
+    display: flex;
+    flex-direction: column;
+    font-size: 0.9rem;
+  }
+  .date-inputs input {
+    padding: 0.4rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+  }
+
+  /* Button */
+  .add-cart {
+    padding: 1rem;
+    width: 100%;
+    background: #000;
+    color: #fff;
+    border: none;
+    font-size: 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  .add-cart:hover {
+    background: #333;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .container {
+      flex-direction: column;
+      padding: 1rem;
+    }
+    .gallery {
+      flex-direction: column;
+    }
+    .thumbnails {
+      flex-direction: row;
+      justify-content: center;
+    }
+    .main-image img {
+      max-width: 100%;
+    }
+  }
+</style>
+
+<script>
+  // Image Switcher
+  function changeImage(element) {
+    document.getElementById("currentImage").src = element.src;
+  }
+
+  // Active State Toggle for size buttons
+  const sizeButtons = document.querySelectorAll(".size-btn");
+  sizeButtons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      sizeButtons.forEach((b) => b.classList.remove("active"));
+      btn.classList.add("active");
+    });
+  });
+
+  // Active State Toggle for rental options
+  const rentalButtons = document.querySelectorAll(".rental-btn");
+  rentalButtons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      rentalButtons.forEach((b) => b.classList.remove("active"));
+      btn.classList.add("active");
+    });
+  });
+</script>
+{% endblock %}

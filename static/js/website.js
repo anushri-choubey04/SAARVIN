@@ -286,6 +286,29 @@ new Swiper('.swiper', {
     1280: { slidesPerView: 4.2 }
   }
 });
+
+
+  lucide.createIcons();
+
+  // Wishlist functionality
+  function toggleWishlist(productId) {
+    fetch('/api/wishlist/add/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]')?.value || ''
+      },
+      body: JSON.stringify({ product_id: productId })
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.message) {
+        alert(data.message);
+      } else if (data.error) {
+        alert(data.error);
+      }
+    });
+  }
 // End Quick View js code
 
 //Video Section js code

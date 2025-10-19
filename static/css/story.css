@@ -1,0 +1,174 @@
+/* ===== Moving Headline Above Stories ===== */
+.moving-headline {
+        position: relative;
+        overflow: hidden;
+        white-space: nowrap;
+        background: linear-gradient(90deg, #ec4899, #f472b6);
+        color: #fff;
+        font-weight: 600;
+        font-family: "Inter", sans-serif;
+        padding: 10px 0;
+        border-bottom: 2px solid #fbcfe8;
+      }
+
+      .headline-track {
+        display: inline-block;
+        white-space: nowrap;
+        animation: scroll-left 25s linear infinite;
+      }
+
+      .headline-track span {
+        margin-right: 40px;
+        font-size: 15px;
+        letter-spacing: 0.5px;
+      }
+
+      @keyframes scroll-left {
+        0% {
+          transform: translateX(100%);
+        }
+        100% {
+          transform: translateX(-100%);
+        }
+      }
+
+.moving-headline p {
+  display: inline-block;
+  white-space: nowrap;
+  font-size: 13px;
+  font-weight: 600;
+  color: #ec4899;
+  letter-spacing: 0.5px;
+  animation: scrollText 15s linear infinite;
+}
+
+
+
+/* ===== Rest of Story Section (same as before) ===== */
+.story-section {
+  padding: 10px 0;
+  background: #ffffff;
+  border-bottom: 1px solid #f0f0f0;
+  font-family: "Inter", sans-serif;
+}
+
+.story-heading {
+  font-size: 16px;
+  font-weight: 600;
+  color: #222;
+  margin: 0 14px 8px;
+}
+
+/* Horizontal scroll setup */
+.stories-container {
+  display: flex;
+  flex-direction: row;
+  gap: 14px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 10px 12px;
+  scroll-behavior: smooth;
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
+}
+
+.stories-container::-webkit-scrollbar {
+  display: none;
+}
+.stories-container {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Each story card */
+.story {
+  flex: 0 0 auto;
+  width: 70px;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.story:hover {
+  transform: translateY(-3px);
+}
+
+/* Avatar circle */
+.story-avatar {
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  border: 2.5px solid transparent;
+  background: linear-gradient(45deg, #ec4899, #f97316);
+  padding: 2px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.story-avatar::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: #fff;
+  z-index: 0;
+}
+
+.story-avatar img,
+.story-avatar i {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.story-avatar i {
+  color: #ec4899;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Info below avatar */
+.story-info {
+  margin-top: 6px;
+}
+
+.story-username {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: #111;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.story-time {
+  display: block;
+  font-size: 10px;
+  color: #999;
+}
+
+/* Add Story special style */
+.add-story .story-avatar {
+  background: #f3f3f3;
+  border: 2px dashed #ec4899;
+}
+
+.add-story i {
+  color: #ec4899;
+  font-size: 22px;
+}
+
+/* Divider line below */
+.story-section::after {
+  content: "";
+  display: block;
+  height: 1px;
+  background: linear-gradient(to right, #eee, transparent);
+  margin-top: 10px;
+}

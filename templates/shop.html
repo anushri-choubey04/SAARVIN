@@ -7,6 +7,7 @@
 <div class="container">
   <div class="product-grid" id="product-grid">
     {% for product in products %}
+    <a href="{% url 'product_detail' product.id %}" class="product-card-link">
     <div class="product-card">
       <div class="product-image">
         {% if product.images.first and product.images.first.image and product.images.first.image.name %}
@@ -42,6 +43,9 @@
         </button>
       </div>
     </div>
+  </a>
+    
+    
     {% empty %}
     <div class="no-products">
       <h3>No products found</h3>
@@ -50,6 +54,7 @@
     {% endfor %}
   </div>
 </div>
+
 
 <style>
   .container {
