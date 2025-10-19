@@ -4,9 +4,15 @@ Home{% endblock %} {% block content %}
 <link rel="stylesheet" href="{% static 'css/story.css' %}" />
 
 <section class="story-section md:hidden md:mt-10">
-   
+  <!-- Moving Headline -->
+  <div class="moving-headline">
+    <p>
+      <span>✨ Share Your Style</span>
+      <span>• List Your Clothes</span>
+      <span>• Explore Trending Looks ✨</span>
+    </p>
+  </div>
 
-  <h3 class="story-heading">Stories</h3>
   <div class="stories-container">
     <!-- Fixed Add Story Cards -->
     <div class="story" data-story-id="1">
@@ -48,7 +54,6 @@ Home{% endblock %} {% block content %}
     {% endfor %}
   </div>
 </section>
-
 
 <!-- Hero Section -->
 <div class="hero">
