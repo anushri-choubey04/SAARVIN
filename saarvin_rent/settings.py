@@ -82,9 +82,13 @@ WSGI_APPLICATION = "saarvin_rent.wsgi.application"
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'postSQL',  # The name of your PostgreSQL database
+        'USER': 'postSQL',  # Your PostgreSQL username
+        'PASSWORD': 'postSQL',  # Your PostgreSQL password
+        'HOST': 'localhost',  # Or the hostname/IP of your PostgreSQL server
+        'PORT': 5433,  # Leave empty for default (5432), or specify your port
     }
 }
 
